@@ -9,6 +9,9 @@ import {
   Alert,
 } from 'react-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
+
+import { tryLogin } from '../../actions';
 
 import { styles } from './styles';
 import { FormRow } from '../../components/FormRow';
@@ -49,54 +52,22 @@ class LoginPage extends React.Component {
 
   tryLogin() {
     this.setState({ isLoading: true, message: '' });
-    const { mail, password } = this.state;
+    const { mail: email, password } = this.state;
 
-    const loginUserSuccess = (user) => {
-      this.setState({ message: 'Usuario Logado!' });
-      this.props.navigation.navigate('Main');
-    };
-
-    const loginUserFailed = (user) => {
-      this.setState({
-        message: this.getMessageByErrorCode(error.code),
-      });
-    };
-
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(mail, password)
-      .then(loginUserSuccess)
-      .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          Alert.alert(
-            'Usuario nao encontrado',
-            'Deseja cadastrar um usuario com os dados inseridos?',
-            [
-              {
-                text: 'Não',
-                onPress: () => {
-                  console.log('Usuario nao deseja Criar uma conta');
-                },
-                style: 'cancel', // Only IOS
-              },
-              {
-                text: 'Sim',
-                onPress: () => {
-                  firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(mail, password)
-                    .then(loginUserSuccess)
-                    .catch(loginUserFailed);
-                },
-              },
-            ],
-            { cancelable: false },
-          );
-        } else {
-          loginUserFailed(error);
+    this.props
+      .tryLogin({ email, password })
+      .then((user) => {
+        if (user) {
+          return this.props.navigation.replace('Main');
         }
+        this.setState({ isLoading: false, message: '' });
       })
-      .then(() => this.setState({ isLoading: false }));
+      .catch((error) => {
+        this.setState({
+          isLoading: false,
+          message: this.getMessageByErrorCode(error.code),
+        });
+      });
   }
 
   getMessageByErrorCode(errorCode) {
@@ -183,4 +154,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export { LoginPage };
+export default connect(null, { tryLogin })(LoginPage);

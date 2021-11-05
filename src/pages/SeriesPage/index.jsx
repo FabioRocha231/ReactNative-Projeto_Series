@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 
 import { styles } from './styles';
 
-const SeriesPage = ({ series }) => {
+const SeriesPage = (props) => {
   return (
     <View>
       <Text>Esta e a Series Page</Text>
