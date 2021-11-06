@@ -3,17 +3,28 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginPage from './pages/LoginPage';
 import { SeriesPage } from './pages/SeriesPage';
+import { SerieDetailPage } from './pages/SerieDetailPage';
 
 const AppNavigator = createStackNavigator(
   {
+    Main: {
+      screen: SeriesPage,
+    },
+    SerieDetail: {
+      screen: SerieDetailPage,
+      navigationOptions: ({ navigation }) => {
+        const { serie } = navigation.state.params;
+
+        return {
+          title: serie.title,
+        };
+      },
+    },
     Login: {
       screen: LoginPage,
       navigationOptions: {
         title: 'Bem vindo!',
       },
-    },
-    Main: {
-      screen: SeriesPage,
     },
   },
   {
