@@ -6,9 +6,6 @@ export const styles = StyleSheet.create({
     marginTop: 200,
   },
   textInput: {
-    borderBottomWidth: 1,
-    marginBottom: 5,
-    borderBottomColor: '#C5C5C5',
     paddingHorizontal: 5,
   },
   login: {

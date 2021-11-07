@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    borderWidth: 1,
   },
   cardTitleWrapper: {
     backgroundColor: 'black',
@@ -25,6 +24,10 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 3,
     alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   firstColumn: {
     paddingLeft: 10,

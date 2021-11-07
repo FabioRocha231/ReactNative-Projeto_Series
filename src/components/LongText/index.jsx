@@ -27,7 +27,7 @@ class LongText extends React.Component {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     LayoutAnimation.spring();
   }
 

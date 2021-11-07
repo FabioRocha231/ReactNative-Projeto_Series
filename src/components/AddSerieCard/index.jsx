@@ -13,8 +13,10 @@ const AddSerieCard = ({ serie, isFirstColumn, onNavigate }) => (
     ]}
   >
     <View style={styles.card}>
-      {/*<Image source={{ uri: serie.img }} aspectRatio={1} resizeMode="cover" />*/}
-      <Text>Aqui vai nosso botao</Text>
+      <Image
+        source={require('../../../resources/add.png')}
+        style={styles.image}
+      />
     </View>
   </TouchableOpacity>
 );
