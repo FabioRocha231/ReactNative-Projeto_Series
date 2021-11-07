@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginPage from './pages/LoginPage';
 import SerieFormPage from './pages/SerieFormPage';
-import { SeriesPage } from './pages/SeriesPage';
+import SeriesPage from './pages/SeriesPage';
 import { SerieDetailPage } from './pages/SerieDetailPage';
 
 const AppNavigator = createStackNavigator(

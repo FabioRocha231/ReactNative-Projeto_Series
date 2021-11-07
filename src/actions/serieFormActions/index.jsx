@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 const SET_FIELD = 'SET_FIELD';
 const setField = (field, value) => {
   return {
@@ -7,8 +9,20 @@ const setField = (field, value) => {
   };
 };
 
+const SERIE_SAVED_SUCCESS = 'SERIE_SAVED_SUCCESS';
+const serieSavedSuccess = () => ({
+  type: SERIE_SAVED_SUCCESS,
+});
+
 const saveSerie = (serie) => {
-  console.log('Aqui vamos salvar nossa serie', serie);
+  const { currentUser } = firebase.auth();
+  return async (dispatch) => {
+    await firebase
+      .database()
+      .ref(`/users/${currentUser.uid}/series`)
+      .push(serie);
+    dispatch(serieSavedSuccess());
+  };
 };
 
-export { SET_FIELD, setField, saveSerie };
+export { SET_FIELD, SERIE_SAVED_SUCCESS, setField, saveSerie };

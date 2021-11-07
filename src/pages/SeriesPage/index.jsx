@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { styles } from './styles';
+import { connect } from 'react-redux';
 
 import { SerieCard } from '../../components/SerieCard';
 import { AddSerieCard } from '../../components/AddSerieCard';
 
-import series from '../../../series.json';
-
-const SeriesPage = (props) => {
+const SeriesPage = ({ series, navigation }) => {
   return (
     <View>
       <FlatList
@@ -16,7 +15,7 @@ const SeriesPage = (props) => {
           item.isLast ? (
             <AddSerieCard
               isFirstColumn={index % 2 === 0 ? true : false}
-              onNavigate={() => props.navigation.navigate('SerieForm')}
+              onNavigate={() => navigation.navigate('SerieForm')}
             />
           ) : (
             <View style={styles.container}>
@@ -24,7 +23,7 @@ const SeriesPage = (props) => {
                 serie={item}
                 isFirstColumn={index % 2 === 0 ? true : false}
                 onNavigate={() =>
-                  props.navigation.navigate('SerieDetail', { serie: item })
+                  navigation.navigate('SerieDetail', { serie: item })
                 }
               />
             </View>
@@ -39,4 +38,9 @@ const SeriesPage = (props) => {
   );
 };
 
-export { SeriesPage };
+const mapStateToProps = (state) => {
+  const { series } = state;
+  return { series };
+};
+
+export default connect(mapStateToProps)(SeriesPage);
