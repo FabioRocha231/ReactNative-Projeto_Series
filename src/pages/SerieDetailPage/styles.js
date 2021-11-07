@@ -8,4 +8,7 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
     resizeMode: 'cover',
   },
+  button: {
+    paddingHorizontal: 20,
+  },
 });

@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { styles } from './styles';
 
 import { FormRow } from '../../components/FormRow';
-import { setField, saveSerie } from '../../actions';
+import { setField, saveSerie, setWholeSerie, resetForm } from '../../actions';
 
 class SerieFormPage extends React.Component {
   constructor(props) {
@@ -25,6 +25,16 @@ class SerieFormPage extends React.Component {
       isLoading: false,
     };
   }
+
+  componentDidMount() {
+    const { navigation, setWholeSerie, resetForm } = this.props;
+    const { params } = navigation.state;
+
+    params && params.serieToEdit
+      ? setWholeSerie(params.serieToEdit)
+      : resetForm();
+  }
+
   render() {
     const { serieForm, setField, saveSerie, navigation } = this.props;
     return (
@@ -120,6 +130,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   setField,
   saveSerie,
+  setWholeSerie,
+  resetForm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SerieFormPage);
