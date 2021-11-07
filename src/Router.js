@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginPage from './pages/LoginPage';
 import SerieFormPage from './pages/SerieFormPage';
 import SeriesPage from './pages/SeriesPage';
-import { SerieDetailPage } from './pages/SerieDetailPage';
+import SerieDetailPage from './pages/SerieDetailPage';
 
 const AppNavigator = createStackNavigator(
   {
@@ -19,8 +19,15 @@ const AppNavigator = createStackNavigator(
     },
     SerieForm: {
       screen: SerieFormPage,
-      navigationOptions: {
-        title: 'Nova serie',
+      navigationOptions: ({ navigation }) => {
+        if (navigation.state.params && navigation.state.params.serieToEdit) {
+          return {
+            title: navigation.state.params.serieToEdit.title,
+          };
+        }
+        return {
+          title: 'Nova serie',
+        };
       },
     },
     SerieDetail: {
